@@ -1,5 +1,4 @@
 import {stream, if$, merge$, flatten} from 'zliq'; 
-import { removeListener } from 'cluster';
 
 let interceptClickEventInstance
 
