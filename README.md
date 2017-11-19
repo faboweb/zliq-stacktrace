@@ -1,28 +1,81 @@
 
-<p align="center">
-    <img src="icon.png" alt="zliq logo" title="zliq" width="150" />
-</p>
+# ZLIQ-Router
 
-# ZLIQ
+## [ZLIQ](https://faboweb.github.io/zliq/)
 
-[![Dependencies][dependencyci-badge]][dependencyci]
-[![CircleCI](https://circleci.com/gh/faboweb/zliq.svg?style=shield)](https://circleci.com/gh/faboweb/zliq)
-[![version][version-badge]][package]
-[![downloads][downloads-badge]][npm-stat]
-[![MIT License][license-badge]][LICENSE]
-<!--[![Examples][examples-badge]][examples]--> 
+Router for the light zliq-framework.
 
-[![Code Climate](https://codeclimate.com/github/faboweb/zliq.png)](https://codeclimate.com/github/faboweb/zliq)
-[![Test Coverage](https://codeclimate.com/github/faboweb/zliq/badges/coverage.svg)](https://codeclimate.com/github/faboweb/zliq/coverage)
-[![gzip size][tiny-gzip-badge]][unpkg-dist]
-[![size][tiny-size-badge]][unpkg-dist]
-[![module formats: es, umd][module-formats-badge]][unpkg-dist]
+## Quickstart
+To use ZLIQ in your project, first install it as an dependency:
+```bash
+$ npm install --save zliq zliq-router
+```
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
-[![Watch on GitHub][github-watch-badge]][github-watch]
-[![Star on GitHub][github-star-badge]][github-star]
+Then initialize the router which hooks into document events
+```js
+import {h} from 'zliq';
+import {initRouter} from 'zliq-router';
 
-ZLIQ is the intent to create an easy to understand, easy to use web framework. It is based on reactive-streams and reactive-dom-rendering. ZLIQ has few lines of code (~630 May 2017).
+let router$ = initRouter()
+
+let app = <div>
+        <a href="/route?param=value#anchor" />
+    </div>;
+document.querySelector('#app').appendChild(app);
+
+// Will be '/route {param: 'value'} anchor after click on link
+router$.map(({route, params, anchor}) => console.log(route, params, anchor))
+
+```
+
+To route you could switch on route values.
+```js
+let router$ = initRouter()
+
+let app = <div>
+        <a href="/route?param=value#anchor" />
+        {
+            if$(router$.$('route').is('route'),
+                <h1>Subpage</h1>,
+                <h1>Titel</h1>)
+         )
+        }
+    </div>;
+document.querySelector('#app').appendChild(app);
+```
+
+Or you use the Router component. The component also registers its route so we can fallback to '/' on missing route.
+We can also add a '/404' route that gets triggered on a missing route if available.
+```js
+let router$ = initRouter()
+
+let app = <div>
+        <a href="/route?param=value#anchor" />
+        <Router router$={router$} route='/'>
+            <h1>Titel</h1>
+        </Router>
+        <Router router$={router$} route='/route'>
+            <h1>Subpage</h1>
+        </Router>
+    </div>;
+document.querySelector('#app').appendChild(app);
+```
+
+
+The router provides a simple router element
+```js
+import {h} from 'zliq';
+import {initRouter} from 'zliq-router';
+
+let router$ = initRouter()
+// Will be '/route {param: 'value'} anchor after click on link
+router$.map(({route, params, anchor}) => console.log(route, params, anchor))
+
+let app = <div>
+        <a href="/route?param=value#anchor" />
+    </div>;
+document.querySelector('#app').appendChild(app);
+```
 
 ## [Website](https://faboweb.github.io/zliq/)
 
