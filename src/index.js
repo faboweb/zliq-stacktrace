@@ -1,1 +1,1 @@
-export * from './router';
+export * from './shrink-stacktrace';

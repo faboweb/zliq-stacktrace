@@ -1,1 +1,1 @@
-export * from './lib/zliq';
+export * from './lib/zliq-stacktrace';

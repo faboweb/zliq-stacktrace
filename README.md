@@ -1,64 +1,26 @@
 
-# ZLIQ-Router
+# ZLIQ-Stacktrace
 
 ## [ZLIQ](https://faboweb.github.io/zliq/)
 
-Router for the light zliq-framework.
+Wrapper around [Stacktrace.js](www.stacktracejs.com) to easyly add it to zliq.
+It will remove calls inside zliq from the stacktrace, making it easier to read.
 
 ## Quickstart
-To use ZLIQ in your project, first install it as an dependency:
+To use ZLIQ-stacktrace in your project, first install it as an dependency:
 ```bash
-$ npm install --save zliq zliq-router
+$ npm install --save zliq-stacktrace
 ```
 
-Then initialize the router which hooks into document events
+Then activate the stacktrace shrinking.
 ```js
-import {h} from 'zliq';
-import {initRouter} from 'zliq-router';
+import {shrinkStacktrace} from 'zliq-stacktrace';
 
-let router$ = initRouter()
-
-let app = <div>
-        <a href="/route?param=value#anchor" />
-    </div>;
-document.querySelector('#app').appendChild(app);
-
-// Will be '/route {param: 'value'} anchor after click on link
-router$.map(({route, params, anchor}) => console.log(route, params, anchor))
-
-```
-
-To route you could switch on route values.
-```js
-let router$ = initRouter()
-
-let app = <div>
-        <a href="/route?param=value#anchor" />
-        {
-            if$(router$.$('route').is('route'),
-                <h1>Subpage</h1>,
-                <h1>Titel</h1>)
-         )
-        }
-    </div>;
-document.querySelector('#app').appendChild(app);
-```
-
-Or you use the Router component. The component also registers its route so we can fallback to '/' on missing route.
-We can also add a '/404' route that gets triggered on a missing route if available.
-```js
-let router$ = initRouter()
-
-let app = <div>
-        <a href="/route?param=value#anchor" />
-        <Router router$={router$} route='/'>
-            <h1>Titel</h1>
-        </Router>
-        <Router router$={router$} route='/route'>
-            <h1>Subpage</h1>
-        </Router>
-    </div>;
-document.querySelector('#app').appendChild(app);
+// shrinkStacktrace returns an errorhandler
+window.onerror = shrinkStacktrace(
+    /node_modules\/zliq/, // blackList (optional)
+    /.*/ // whitelist (optional)
+);
 ```
 
 [npm]: https://www.npmjs.com/
@@ -83,5 +45,3 @@ document.querySelector('#app').appendChild(app);
 [tiny-size-badge]: http://img.badgesize.io/https://unpkg.com/zliq/lib/zliq.min.js?label=size&style=flat-square
 [unpkg-dist]: https://unpkg.com/zliq/
 [module-formats-badge]: https://img.shields.io/badge/module%20formats-es%20umd-green.svg?style=flat-square
-
-Logo based on: http://www.iconsfind.com/2015/11/25/candy-dessert-food-sweet-baby-icon/

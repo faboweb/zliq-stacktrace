@@ -1,5 +1,5 @@
 {
-  "name": "zliq-router",
+  "name": "zliq-stacktrace",
   "version": "0.0.1",
   "description": "router for the zliq web framework",
   "main": "index.js",
@@ -7,8 +7,8 @@
     "test": "jest",
     "tdd": "jest --watch",
     "test:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand --watch",
-    "build": "webpack --config webpack/build.js --output-filename=zliq-router.js --output-path=lib/",
-    "build:min": "webpack -p --config webpack/build_min.js --output-filename=zliq-router.min.js --output-path=lib/",
+    "build": "webpack --config webpack/build.js --output-filename=zliq-stacktrace.js --output-path=lib/",
+    "build:min": "webpack -p --config webpack/build_min.js --output-filename=zliq-stacktrace.min.js --output-path=lib/",
     "build:all": "npm run build && npm run build:min",
     "build:demo": "webpack --config webpack/demo.js",
     "build:lib": "npm run build && npm run build:min",
@@ -17,6 +17,7 @@
   "author": "Fabian <faboweber@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "sourcemapped-stacktrace": "git+https://github.com/novocaine/sourcemapped-stacktrace.git",
     "zliq": "^1.6.4"
   },
   "devDependencies": {
@@ -35,7 +36,7 @@
     "worker-loader": "^0.8.0"
   },
   "repository": {
-    "url": "https://github.com/faboweb/zliq.git",
+    "url": "https://github.com/faboweb/zliq-stacktrace.git",
     "type": "git"
   },
   "jest": {
