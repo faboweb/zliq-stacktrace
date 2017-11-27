@@ -1,6 +1,6 @@
 {
   "name": "zliq-stacktrace",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "router for the zliq web framework",
   "main": "index.js",
   "scripts": {
