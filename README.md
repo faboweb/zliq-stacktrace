@@ -12,20 +12,25 @@ To use ZLIQ-stacktrace in your project, first install it as an dependency:
 $ npm install --save zliq-stacktrace
 ```
 
+IMPORTANT: Activate sourcemaps in your development environment.
+
 Then activate the stacktrace shrinking.
 ```js
 import {shrinkStacktrace} from 'zliq-stacktrace';
 
 // shrinkStacktrace returns an errorhandler
+// how your environment returns the files is very different, just create a regex to filter node_modules or similar
 const errorHandler = shrinkStacktrace(
     /node_modules\/zliq/, // blackList (optional)
     /.*/ // whitelist (optional)
 );
 
+// use it globaly
 window.onerror = (messageOrEvent, source, lineno, colno, error) => {
     return errorHandler(error);
 };
 
+// or use it locally
 try {
     // CODE BLOCK
 } catch (error) {
