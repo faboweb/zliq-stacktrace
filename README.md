@@ -17,12 +17,21 @@ Then activate the stacktrace shrinking.
 import {shrinkStacktrace} from 'zliq-stacktrace';
 
 // shrinkStacktrace returns an errorhandler
+const errorHandler = shrinkStacktrace(
+    /node_modules\/zliq/, // blackList (optional)
+    /.*/ // whitelist (optional)
+);
+
 window.onerror = (messageOrEvent, source, lineno, colno, error) => {
-    return shrinkStacktrace(
-        /node_modules\/zliq/, // blackList (optional)
-        /.*/ // whitelist (optional)
-    )(error);
+    return errorHandler(error);
+};
+
+try {
+    // CODE BLOCK
+} catch (error) {
+    errorHandler(error)
 }
+
 ```
 
 [npm]: https://www.npmjs.com/
