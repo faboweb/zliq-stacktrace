@@ -1,5 +1,6 @@
-
 # ZLIQ-Stacktrace
+
+## !!This project is currently not maintained!!
 
 ## [ZLIQ](https://faboweb.github.io/zliq/)
 
